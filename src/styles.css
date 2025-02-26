@@ -1,1 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
+background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfk5B9Fkf0YTe-dSyOGFwY-Xl4xZD-Zy316w&s'); background-size: cover; height: 100vh;}
