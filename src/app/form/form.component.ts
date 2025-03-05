@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -39,33 +40,30 @@ export class FormComponent {
   birthDate!: Date;
   address: string = '';
   badgeNumber: number = 5;
+  region: string = '';
+  terms: boolean = false;
   submitted = false;
   minSkillLevel = 1;
   maxSkillLevel = 8;
 
   formdata: FormGroup = new FormGroup({
-    trainerName: new FormControl(''),
+    trainerName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    gender: new FormControl('', [Validators.required]),
-    birthDate: new FormControl(null, [Validators.required]),
+    gender: new FormControl('', Validators.required),
+    birthDate: new FormControl(null, Validators.required),
     address: new FormControl(''),
     badgeNumber: new FormControl(5),
-    region: new FormControl('', [Validators.required]),
-    terms: new FormControl(false, [Validators.requiredTrue])
+    region: new FormControl('', Validators.required),
+    terms: new FormControl(false, Validators.requiredTrue)
   });
 
-  onClickSubmit(data: {
-    trainerName: string;
-    email: string;
-    password: string;
-    gender: string;
-    birthDate: Date;
-    address: string;
-    badgeNumber: number;
-    region: string;
-    terms: boolean;
-  }) {
+  onClickSubmit(data: any) {
+    if (this.formdata.invalid) {
+      console.error("Form is invalid. Please fill in all required fields.");
+      return;
+    }
+
     this.submitted = true;
     this.trainerName = data.trainerName;
     this.email = data.email;
@@ -74,11 +72,9 @@ export class FormComponent {
     this.birthDate = data.birthDate;
     this.address = data.address;
     this.badgeNumber = data.badgeNumber;
+    this.region = data.region;
+    this.terms = data.terms;
 
-    if (this.formdata.valid) {
-      console.log(this.formdata.value);
-    } else {
-      console.log('Form is not valid');
-    }
+    console.log("Form submitted successfully", this.formdata.value);
   }
 }
