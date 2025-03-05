@@ -57,8 +57,21 @@
         </mat-form-field>
 
         <div class="slider-group">
-            <label class="slider-label">Number of Badge: {{ formdata.get('badgeNumber')?.value }}</label>
-            <mat-slider [min]="minSkillLevel" [max]="maxSkillLevel" [step]="1" formControlName="badgeNumber"></mat-slider>
+            <label class="slider-label">Number of Badge:</label>
+            <mat-slider 
+                [min]="minSkillLevel" 
+                [max]="maxSkillLevel" 
+                [step]="1" 
+                formControlName="badgeNumber"
+                (input)="onSliderChange($event.value)">
+            </mat-slider>
+            <input 
+                type="number" 
+                [formControl]="formdata.get('badgeNumber')" 
+                (input)="onInputChange($event.target.value)" 
+                min="1" 
+                max="8" 
+                style="width: 50px; margin-left: 10px;">
         </div>
 
         <mat-checkbox formControlName="terms">
@@ -66,8 +79,6 @@
         </mat-checkbox>
 
         <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid">Click Here</button>
-     
-  Click Here</button>
     </form>
 
     <p *ngIf="submitted" style="color:white;">
