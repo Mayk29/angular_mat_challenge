@@ -56,17 +56,17 @@
             </mat-select>
         </mat-form-field>
 
-        <div class="slider-group">
+<!--         <div class="slider-group">
             <label class="slider-label">Number of Badge: {{ formdata.get('badgeNumber')?.value }}</label>
             <mat-slider [min]="minSkillLevel" [max]="maxSkillLevel" [step]="1" formControlName="badgeNumber"></mat-slider>
-        </div>
+        </div> -->
 
         <mat-checkbox formControlName="terms">
             I agree to the terms and conditions
         </mat-checkbox>
 
-<!--         <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid">Click Here</button> -->
-      <button mat-raised-button color="primary" type="submit">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid">Click Here</button>
+     
   Click Here</button>
     </form>
 
