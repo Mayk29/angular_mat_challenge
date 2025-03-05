@@ -11,7 +11,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -30,7 +29,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule
   ],
   templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css'] // Corrected from styleUrl to styleUrls
+  styleUrl: './form.component.css'
 })
 export class FormComponent {
   trainerName: string = '';
@@ -40,30 +39,33 @@ export class FormComponent {
   birthDate!: Date;
   address: string = '';
   badgeNumber: number = 5;
-  region: string = '';
-  terms: boolean = false;
   submitted = false;
   minSkillLevel = 1;
   maxSkillLevel = 8;
 
   formdata: FormGroup = new FormGroup({
-    trainerName: new FormControl('', Validators.required),
+    trainerName: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    gender: new FormControl('', Validators.required),
-    birthDate: new FormControl(null, Validators.required),
+    gender: new FormControl('', [Validators.required]),
+    birthDate: new FormControl(null, [Validators.required]),
     address: new FormControl(''),
     badgeNumber: new FormControl(5),
-    region: new FormControl('', Validators.required),
-    terms: new FormControl(false, Validators.requiredTrue)
+    region: new FormControl('', [Validators.required]),
+    terms: new FormControl(false, [Validators.requiredTrue])
   });
 
-  onClickSubmit(data: any) {
-    if (this.formdata.invalid) {
-      console.error("Form is invalid. Please fill in all required fields.");
-      return;
-    }
-
+  onClickSubmit(data: {
+    trainerName: string;
+    email: string;
+    password: string;
+    gender: string;
+    birthDate: Date;
+    address: string;
+    badgeNumber: number;
+    region: string;
+    terms: boolean;
+  }) {
     this.submitted = true;
     this.trainerName = data.trainerName;
     this.email = data.email;
@@ -72,20 +74,11 @@ export class FormComponent {
     this.birthDate = data.birthDate;
     this.address = data.address;
     this.badgeNumber = data.badgeNumber;
-    this.region = data.region;
-    this.terms = data.terms;
 
-    console.log("Form submitted successfully", this.formdata.value);
-  }
-
-  onSliderChange(value: number) {
-    this.formdata.get('badgeNumber')?.setValue(value);
-  }
-
-  onInputChange(value: string) {
-    const numericValue = Number(value);
-    if (numericValue >= this.minSkillLevel && numericValue <= this.maxSkillLevel) {
-      this.formdata.get('badgeNumber')?.setValue(numericValue);
+    if (this.formdata.valid) {
+      console.log(this.formdata.value);
+    } else {
+      console.log('Form is not valid');
     }
   }
 }
