@@ -30,7 +30,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     ReactiveFormsModule
   ],
   templateUrl: './form.component.html',
-  styleUrl: './form.component.css'
+  styleUrls: ['./form.component.css'] // Corrected from styleUrl to styleUrls
 })
 export class FormComponent {
   trainerName: string = '';
@@ -76,5 +76,16 @@ export class FormComponent {
     this.terms = data.terms;
 
     console.log("Form submitted successfully", this.formdata.value);
+  }
+
+  onSliderChange(value: number) {
+    this.formdata.get('badgeNumber')?.setValue(value);
+  }
+
+  onInputChange(value: string) {
+    const numericValue = Number(value);
+    if (numericValue >= this.minSkillLevel && numericValue <= this.maxSkillLevel) {
+      this.formdata.get('badgeNumber')?.setValue(numericValue);
+    }
   }
 }
