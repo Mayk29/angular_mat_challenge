@@ -2,74 +2,82 @@
     <form [formGroup]="formdata" (ngSubmit)="onClickSubmit(formdata.value)">
        
         <mat-form-field appearance="fill">
-        <mat-label>Trainer's Name</mat-label>
-        <input matInput formControlName="trainerName" placeholder="Enter your gym trainer's name">
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" placeholder="Enter your email">
-        <mat-error *ngIf="formdata.controls['email'].invalid && formdata.controls['email'].touched">Email is required and must be a valid email.</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" placeholder="Enter your password" formControlName="password" matTooltip="Password must be at least 8 characters long">
-        <mat-error *ngIf="formdata.controls['password'].invalid && formdata.controls['password'].touched">Password is required and must be at least 8 characters long.</mat-error>
-      </mat-form-field>
-  
-      <div class="radio-group">
-        <label for="" class="radio-level">Gender</label>
-        <mat-radio-group formControlName="gender" class="gender-radio-group">
-          <mat-radio-button value="male">Male</mat-radio-button>
-          <mat-radio-button value="female">Female</mat-radio-button>
-          <mat-radio-button value="others">Other</mat-radio-button>
-        </mat-radio-group>
-      </div>
-  
-      <mat-form-field appearance="fill">
-        <mat-label>Address</mat-label>
-        <input matInput placeholder="Input your address" formControlName="address">
-      </mat-form-field>
-  
-      <mat-form-field appearance="fill">
-        <mat-label>Birth Date</mat-label>
-        <input matInput [matDatepicker]="picker" placeholder="Select a date" formControlName="birthDate">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="formdata.get('birthDate')?.hasError('required')">Birth date is required.</mat-error>
-      </mat-form-field>
+            <mat-label>Trainer's Name</mat-label>
+            <input matInput formControlName="trainerName" placeholder="Enter your gym trainer's name">
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Region</mat-label>
-        <mat-select formControlName="locality">
-          <mat-option value="Kanto">Kanto</mat-option>
-          <mat-option value="Johto">Johto</mat-option>
-          <mat-option value="Sinnoh">Sinnoh</mat-option>
-          <mat-option value="Unova">Unova</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="Enter your email">
+            <mat-error *ngIf="formdata.controls['email'].invalid && formdata.controls['email'].touched">
+                Email is required and must be a valid email.
+            </mat-error>
+        </mat-form-field>
 
-      <div class="slider-group">
-        <label class="slider-label">Number of Badge: {{ formdata.get('badgeNumber')?.value }}</label>
-        <mat-slider [min]="minSkillLevel" [max]="maxSkillLevel" [step]="1" [discrete]="true" formControlName="badgeNumber">
-            <input matSliderThumb formControlName="badgeNumber">
-        </mat-slider>
-      </div>
-      <mat-checkbox formControlName="terms" required style="background-color: white;">
-        I agree to the terms and conditions
-      </mat-checkbox>
-      <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid">Click Here</button>
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" placeholder="Enter your password" formControlName="password" matTooltip="Password must be at least 8 characters long">
+            <mat-error *ngIf="formdata.controls['password'].invalid && formdata.controls['password'].touched">
+                Password is required and must be at least 8 characters long.
+            </mat-error>
+        </mat-form-field>
+
+        <div class="radio-group">
+            <label for="" class="radio-level">Gender</label>
+            <mat-radio-group formControlName="gender" class="gender-radio-group">
+                <mat-radio-button value="male">Male</mat-radio-button>
+                <mat-radio-button value="female">Female</mat-radio-button>
+                <mat-radio-button value="others">Other</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Address</mat-label>
+            <input matInput placeholder="Input your address" formControlName="address">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Birth Date</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Select a date" formControlName="birthDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="formdata.get('birthDate')?.hasError('required')">
+                Birth date is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Region</mat-label>
+            <mat-select formControlName="region">
+                <mat-option value="Kanto">Kanto</mat-option>
+                <mat-option value="Johto">Johto</mat-option>
+                <mat-option value="Sinnoh">Sinnoh</mat-option>
+                <mat-option value="Unova">Unova</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="slider-group">
+            <label class="slider-label">Number of Badge: {{ formdata.get('badgeNumber')?.value }}</label>
+            <mat-slider [min]="minSkillLevel" [max]="maxSkillLevel" [step]="1" formControlName="badgeNumber"></mat-slider>
+        </div>
+
+        <mat-checkbox formControlName="terms">
+            I agree to the terms and conditions
+        </mat-checkbox>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="!formdata.valid">Click Here</button>
     </form>
 
     <p *ngIf="submitted">
-      You have entered: <br>
-      Trainer's name: {{trainerName}}<br>
-      Email: {{email}}<br>
-      Password: {{password}}<br>
-      Gender: {{gender}}<br>
-      Address: {{address}}<br>
-      Birth Date: {{birthDate}}<br>
-      Number of Badge: {{badgeNumber}}<br>
-      Region: {{formdata.get('region')?.value}}<br>
-      Terms Agreed: {{formdata.get('terms')?.value}}
+        You have entered: <br>
+        Trainer's Name: {{ trainerName }}<br>
+        Email: {{ email }}<br>
+        Password: {{ password }}<br>
+        Gender: {{ gender }}<br>
+        Address: {{ address }}<br>
+        Birth Date: {{ birthDate | date:'yyyy-MM-dd' }}<br>
+        Number of Badge: {{ badgeNumber }}<br>
+        Region: {{ region }}<br>
+        Terms Agreed: {{ terms ? 'Yes' : 'No' }}
     </p>
-  </div>
+</div>
